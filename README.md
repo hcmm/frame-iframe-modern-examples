@@ -29,10 +29,10 @@ Aqui está uma tabela comparativa das tags `<iframe>`, `<embed>`, e `<object>` p
 
 
 ### Recomendações de Uso
-
+-   **Para uma solução robusta e personalizável:** Use PDFObject. É fácil de implementar, suporta fallback automático e permite o uso de parâmetros avançados e integração com PDF.js.
+-   **Para flexibilidade máxima:** Use `<object>` se precisar de suporte para conteúdo alternativo e passar parâmetros adicionais ao plugin.
 -   **Para a maioria dos casos:** Use `<iframe>`. É amplamente suportado, oferece várias opções de personalização e é ideal para conteúdo dinâmico e interativo.
 -   **Para incorporação simples:** Use `<embed>` se precisar de uma solução rápida e simples sem muitas opções de personalização.
--   **Para flexibilidade máxima:** Use `<object>` se precisar de suporte para conteúdo alternativo e passar parâmetros adicionais ao plugin.
 
 
 
