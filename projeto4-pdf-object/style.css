@@ -15,6 +15,7 @@ header {
     background-color: #f1f1f1;
     text-align: center;
     padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -24,21 +25,30 @@ nav {
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding: 10px 0;
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 nav ul li {
-    padding: 10px;
-    cursor: pointer;
+    padding: 15px 20px;
 }
 
-nav ul li:hover {
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
     background-color: #575757;
+    color: #ddd;
 }
 
 main {
@@ -47,8 +57,7 @@ main {
     overflow: auto;
 }
 
-object {
+.pdf-viewer-container {
     width: 100%;
-    height: 100vh;
-    border: none;
+    height: 100%;
 }
