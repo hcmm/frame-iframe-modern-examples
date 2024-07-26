@@ -8,6 +8,8 @@ Aqui está uma tabela comparativa das tags `<iframe>`, `<embed>`, e `<object>` p
 | `<embed>` | - Simples de usar e fácil de implementar.<br>- Amplamente suportado.<br>- Requer menos atributos para funcionar.<br>- Adequado para conteúdo de mídia específico, como vídeos e PDFs. | - Menos flexível e com menos opções de personalização comparado ao `<iframe>` e `<object>`.<br>- Não suporta conteúdo alternativo nem tags `<param>`. |
 | `<object>` | - Suporte para conteúdo alternativo caso o PDF não possa ser exibido.<br>- Permite o uso de tags `<param>` para passar dados adicionais.<br>- Mais flexível, pode incorporar diversos tipos de conteúdo. | - Sintaxe mais complexa.<br>- Pode haver problemas de compatibilidade com navegadores mais antigos.<br>- Requer mais configuração para funcionar corretamente. |
 | `<frame>` | Nenhuma| - Descontinuado no HTML5 e não recomendado para uso em novos projetos.<br>- Problemas de usabilidade e acessibilidade. <br>- Difícil de manter e estilizar. |
+| `<PDFObject>` | - Fácil de usar e altamente personalizável.<br>- Suporte a fallback automático para navegadores que não suportam PDFs embutidos.<br>- Permite o uso de parâmetros de abertura de PDF e mensagens customizadas.<br>- Integração com PDF.js para renderização consistente.<br>- Não há problemas com CORS ao carregar PDFs, pois utiliza <iframe>.| -  Requer a inclusão de uma biblioteca externa.<br>- Pode necessitar de configurações adicionais para cenários específicos.<br>- Dependência de suporte do navegador para funcionalidades avançadas. |
+
 
 
 #### Atributos Comuns
