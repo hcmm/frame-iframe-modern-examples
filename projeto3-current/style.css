@@ -47,14 +47,8 @@ main {
     overflow: auto;
 }
 
-.pdfViewer {
+object {
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     border: none;
-}
-
-#htmlContent {
-    width: 100%;
-    height: 80vh;
-    overflow-y: auto;
 }

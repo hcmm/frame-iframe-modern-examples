@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Web Page without iFrame</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <title>Visualizador de PDF</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Meu Site com PDFs e Páginas Externas</h1>
+        <h1>Meu Visualizador de PDF Simples</h1>
     </header>
     <nav>
         <ul>
-            <li onclick="loadContent('content.html')">Home</li>
-            <li onclick="loadPDF('https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf')">PDF Externo 1</li>
-            <li onclick="loadPDF('https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf')">PDF Externo 2</li>
-            <li onclick="loadContent('https://www.example.com')">Página Externa 1</li>
-            <li onclick="loadContent('https://www.wikipedia.org')">Página Externa 2</li>
+            <li onclick="loadPDF('https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf')">PDF Local 1</li>
+			<li onclick="loadPDF('https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf')">PDF Local 2</li>
         </ul>
     </nav>
-    <main id="content">
-        <div id="pdfViewer" class="pdfViewer"></div>
-        <div id="htmlContent"></div>
+    <main>
+        <object id="pdf-object" data="https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf" type="application/pdf">
+            <embed src="https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf" type="application/pdf" />
+        </object>
     </main>
-
-    <script src="script.js"></script>
+    <script>
+        function loadPDF(url) {
+            const pdfObject = document.getElementById('pdf-object');
+            pdfObject.data = url;
+        }
+    </script>
 </body>
 </html>
