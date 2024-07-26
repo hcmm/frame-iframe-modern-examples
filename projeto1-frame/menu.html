@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            cursor: pointer;
+        }
+        li:hover {
+            background-color: #575757;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li onclick="parent.contentFrame.location='content.html';">Home</li>
+        <li onclick="parent.contentFrame.location='https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';">PDF Externo 1</li>
+        <li onclick="parent.contentFrame.location='https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf';">PDF Externo 2</li>
+        <li onclick="parent.contentFrame.location='https://www.example.com';">Página Externa 1</li>
+        <li onclick="parent.contentFrame.location='https://www.wikipedia.org';">Página Externa 2</li>
+    </ul>
+</body>
+</html>

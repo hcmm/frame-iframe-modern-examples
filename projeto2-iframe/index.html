@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exemplo com iFrame</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 20px;
+        }
+        nav {
+            width: 200px;
+            float: left;
+            background-color: #333;
+            color: #fff;
+            height: 100vh;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            padding: 10px;
+            cursor: pointer;
+        }
+        nav ul li:hover {
+            background-color: #575757;
+        }
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meu Site com PDFs e Páginas Externas</h1>
+    </header>
+    <nav>
+        <ul>
+            <li onclick="loadContent('content.html')">Home</li>
+            <li onclick="loadContent('https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf')">PDF Externo 1</li>
+            <li onclick="loadContent('https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf')">PDF Externo 2</li>
+            <li onclick="loadContent('https://www.example.com')">Página Externa 1</li>
+            <li onclick="loadContent('https://www.wikipedia.org')">Página Externa 2</li>
+        </ul>
+    </nav>
+    <div class="content">
+        <iframe id="contentFrame" src="content.html"></iframe>
+    </div>
+
+    <script>
+        function loadContent(url) {
+            document.getElementById('contentFrame').src = url;
+        }
+    </script>
+</body>
+</html>
