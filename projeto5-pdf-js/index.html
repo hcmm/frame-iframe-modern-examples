@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de PDF</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Meu Visualizador de PDF Simples</h1>
+    </header>
+    <nav>
+        <ul>
+            <li onclick="loadPDF('https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf')">PDF Local 1</li>
+            <li onclick="loadPDF('https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf')">PDF Local 2</li>
+        </ul>
+    </nav>
+    <main>
+        <canvas id="pdf-canvas" style="width: 100%; height: auto; border: 1px solid black;"></canvas>
+    </main>
+    <script>
+        function loadPDF(url) {
+            const loadingTask = pdfjsLib.getDocument(url);
+            loadingTask.promise.then((pdf) => {
+                console.log('PDF loaded');
+                pdf.getPage(1).then((page) => {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale: scale });
+
+                    const canvas = document.getElementById('pdf-canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    const renderTask = page.render(renderContext);
+                    renderTask.promise.then(() => {
+                        console.log('Page rendered');
+                    });
+                });
+            }, (reason) => {
+                console.error(reason);
+            });
+        }
+
+        // Carregar PDF padrão na inicialização
+        loadPDF('https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf');
+    </script>
+</body>
+</html>
