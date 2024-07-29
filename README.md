@@ -9,7 +9,7 @@ Aqui está uma tabela comparativa das tags `<iframe>`, `<embed>`, e `<object>` p
 | `<object>` | - Suporte para conteúdo alternativo caso o PDF não possa ser exibido.<br>- Permite o uso de tags `<param>` para passar dados adicionais.<br>- Mais flexível, pode incorporar diversos tipos de conteúdo. | - Sintaxe mais complexa.<br>- Pode haver problemas de compatibilidade com navegadores mais antigos.<br>- Requer mais configuração para funcionar corretamente. |
 | `<frame>` | Nenhuma| - Descontinuado no HTML5 e não recomendado para uso em novos projetos.<br>- Problemas de usabilidade e acessibilidade. <br>- Difícil de manter e estilizar. |
 | `<PDFObject>` | - Fácil de usar e altamente personalizável.<br>- Suporte a fallback automático para navegadores que não suportam PDFs embutidos.<br>- Permite o uso de parâmetros de abertura de PDF e mensagens customizadas.<br>- Integração com PDF.js para renderização consistente.<br>- Não há problemas com CORS ao carregar PDFs, pois utiliza <iframe>.| -  Requer a inclusão de uma biblioteca externa.<br>- Pode necessitar de configurações adicionais para cenários específicos.<br>- Dependência de suporte do navegador para funcionalidades avançadas. |
-
+| `<PDF.js>` | - Renderiza PDFs nativamente usando JavaScript e HTML5.<br>- Altamente personalizável e extensível.<br>- Suporte para funcionalidades avançadas, como anotações e preenchimento de formulários.<br>- Não depende de plugins de navegador.<br>- Grande comunidade e suporte contínuo.| - Requer mais configuração e conhecimento técnico para implementar.<br>- Performance pode variar dependendo da complexidade do PDF e do navegador.<br>- Pode ser necessário tratamento adicional para grandes PDFs ou documentos complexos. |
 
 
 #### Atributos Comuns
@@ -33,6 +33,7 @@ Aqui está uma tabela comparativa das tags `<iframe>`, `<embed>`, e `<object>` p
 -   **Para flexibilidade máxima:** Use `<object>` se precisar de suporte para conteúdo alternativo e passar parâmetros adicionais ao plugin.
 -   **Para uma solução robusta e personalizável:** Use PDFObject. É fácil de implementar, suporta fallback automático e permite o uso de parâmetros avançados e integração com PDF.js.
 -   **Para incorporação simples:** Use `<embed>` se precisar de uma solução rápida e simples sem muitas opções de personalização.
+-   **Para controle total e funcionalidades avançadas:** Use PDF.js. Ideal para projetos que requerem uma renderização nativa de PDFs e funcionalidades avançadas.
 
 
 

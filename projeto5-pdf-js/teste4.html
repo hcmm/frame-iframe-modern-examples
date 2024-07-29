@@ -38,6 +38,7 @@
             border: 1px solid currentColor;
             border-radius: 3px;
             padding: 0.25em 0.5em;
+            margin: 0 5px;
         }
 
         #toolbar button:hover,
@@ -70,11 +71,27 @@
         #viewport > div {
             text-align: center;
             max-width: 100%;
+            position: relative;
         }
 
         #viewport canvas {
             width: 100%;
             box-shadow: 0 2px 5px gray;
+        }
+
+        #text-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .highlight {
+            position: absolute;
+            background-color: yellow;
+            opacity: 0.5;
         }
     </style>
 </head>
@@ -90,8 +107,6 @@
                 <button id="zoom_in" class="btn"><i class="fas fa-search-plus"></i> Zoom In</button>
                 <button id="zoom_out" class="btn"><i class="fas fa-search-minus"></i> Zoom Out</button>
                 <button id="rotate" class="btn"><i class="fas fa-sync-alt"></i> Rotate</button>
-                <input type="text" id="search" placeholder="Search" class="form-control d-inline-block">
-                <button id="search_button" class="btn"><i class="fas fa-search"></i> Find</button>
                 <button id="download" class="btn btn-success"><i class="fas fa-download"></i> Download PDF</button>
             </div>
         </div>
@@ -138,6 +153,26 @@
                         renderPage(pageNumPending);
                         pageNumPending = null;
                     }
+                });
+
+                var textLayerDiv = document.getElementById('text-layer');
+                textLayerDiv.innerHTML = '';
+
+                page.getTextContent().then(function(textContent) {
+                    textContent.items.forEach(function(item) {
+                        var textSpan = document.createElement('span');
+                        var transform = pdfjsLib.Util.transform(
+                            pdfjsLib.Util.transform(viewport.transform, item.transform),
+                            [1, 0, 0, -1, 0, viewport.height]
+                        );
+                        textSpan.style.left = transform[4] + 'px';
+                        textSpan.style.top = transform[5] + 'px';
+                        textSpan.style.fontSize = item.height + 'px';
+                        textSpan.style.transform = 'scaleX(' + transform[0] + ')';
+                        textSpan.style.position = 'absolute';
+                        textSpan.textContent = item.str;
+                        textLayerDiv.appendChild(textSpan);
+                    });
                 });
             });
 
@@ -189,36 +224,6 @@
             renderPage(pageNum);
         }
         document.getElementById('rotate').addEventListener('click', onRotate);
-
-        function onSearch() {
-            var query = document.getElementById('search').value;
-            pdfDoc.getPage(pageNum).then(function(page) {
-                return page.getTextContent();
-            }).then(function(textContent) {
-                var textItems = textContent.items;
-                var found = false;
-                for (var i = 0; i < textItems.length; i++) {
-                    var item = textItems[i];
-                    if (item.str.includes(query)) {
-                        var textLayerDiv = document.getElementById('text-layer');
-                        var rect = document.createElement('div');
-                        rect.className = 'highlight';
-                        rect.style.left = item.transform[4] + 'px';
-                        rect.style.top = item.transform[5] - item.height + 'px';
-                        rect.style.width = item.width + 'px';
-                        rect.style.height = item.height + 'px';
-                        textLayerDiv.appendChild(rect);
-                        found = true;
-                    }
-                }
-                if (found) {
-                    document.getElementById('text-layer').style.opacity = 1;
-                } else {
-                    alert('Not found on page ' + pageNum);
-                }
-            });
-        }
-        document.getElementById('search_button').addEventListener('click', onSearch);
 
         function onDownload() {
             var newWindow = window.open(url, '_blank');
