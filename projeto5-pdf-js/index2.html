@@ -24,6 +24,11 @@
         #controls button {
             margin: 0 10px;
         }
+        #controls input[type="text"] {
+            display: inline-block;
+            width: auto;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -33,6 +38,14 @@
             <button id="prev" class="btn btn-primary">Previous</button>
             <button id="next" class="btn btn-primary">Next</button>
             <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+            <br><br>
+            <button id="zoom_in" class="btn btn-secondary">Zoom In</button>
+            <button id="zoom_out" class="btn btn-secondary">Zoom Out</button>
+            <button id="rotate" class="btn btn-secondary">Rotate</button>
+            <input type="text" id="search" placeholder="Search" class="form-control">
+            <button id="search_button" class="btn btn-secondary">Find</button>
+            <br><br>
+            <button id="download" class="btn btn-success">Download PDF</button>
         </div>
         <div id="pdf-viewer">
             <canvas id="the-canvas"></canvas>
@@ -49,13 +62,14 @@
             pageRendering = false,
             pageNumPending = null,
             scale = 1.5,
+            rotation = 0,
             canvas = document.getElementById('the-canvas'),
             ctx = canvas.getContext('2d');
 
         function renderPage(num) {
             pageRendering = true;
             pdfDoc.getPage(num).then(function(page) {
-                var viewport = page.getViewport({ scale: scale });
+                var viewport = page.getViewport({ scale: scale, rotation: rotation });
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
@@ -102,6 +116,50 @@
             queueRenderPage(pageNum);
         }
         document.getElementById('next').addEventListener('click', onNextPage);
+
+        function onZoomIn() {
+            scale += 0.1;
+            renderPage(pageNum);
+        }
+        document.getElementById('zoom_in').addEventListener('click', onZoomIn);
+
+        function onZoomOut() {
+            if (scale > 0.2) {
+                scale -= 0.1;
+                renderPage(pageNum);
+            }
+        }
+        document.getElementById('zoom_out').addEventListener('click', onZoomOut);
+
+        function onRotate() {
+            rotation = (rotation + 90) % 360;
+            renderPage(pageNum);
+        }
+        document.getElementById('rotate').addEventListener('click', onRotate);
+
+        function onSearch() {
+            var query = document.getElementById('search').value;
+            pdfDoc.getPage(pageNum).then(function(page) {
+                return page.getTextContent();
+            }).then(function(textContent) {
+                var textItems = textContent.items;
+                for (var i = 0; i < textItems.length; i++) {
+                    var item = textItems[i];
+                    if (item.str.includes(query)) {
+                        alert('Found on page ' + pageNum);
+                        return;
+                    }
+                }
+                alert('Not found on page ' + pageNum);
+            });
+        }
+        document.getElementById('search_button').addEventListener('click', onSearch);
+
+        function onDownload() {
+            var newWindow = window.open(url, '_blank');
+            newWindow.focus();
+        }
+        document.getElementById('download').addEventListener('click', onDownload);
 
         pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
             pdfDoc = pdfDoc_;
