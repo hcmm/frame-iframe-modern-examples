@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificação de Pedido</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 5px; /* Reduzindo ainda mais o espaço abaixo do título */
+            color: #007bff; /* Cor azul */
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        /* Estilos para o cabeçalho */
+        .header {
+            background-color: #007bff; /* Cor azul */
+            color: #ffffff; /* Cor branca */
+            padding: 10px; /* Reduzindo ainda mais o espaço interno do cabeçalho */
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+            text-align: center; /* Centraliza o conteúdo */
+        }
+        .logo {
+            width: 150px; /* Tamanho do logotipo */
+        }
+        /* Estilos para o rodapé */
+        .footer {
+            background-color: #007bff; /* Cor azul */
+            color: #ffffff; /* Cor branca */
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+            margin-top: 20px;
+        }
+        /* Estilos para a linha do tempo */
+        .timeline-container {
+            text-align: center; /* Centraliza horizontalmente */
+            margin-bottom: 20px;
+        }
+        svg.timeline {
+            max-width: 100%; /* Garante que o SVG se ajuste ao contêiner */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="logo" src="logo.svg" alt="Logo da Empresa">
+            <h1>Notificação de Pedido</h1>
+        </div>
+        <!-- Contêiner para o SVG da Linha do Tempo -->
+        <div class="timeline-container">
+            <object type="image/svg+xml" data="pedido_confirmado.svg" width="800" height="100"></object>
+        </div>
+        <div class="content">
+            <p>Olá, <span th:text="${customerName}"></span>,</p>
+            <p>O seu pedido foi recebido com sucesso. Agradecemos pela preferência!</p>
+            <p>Detalhes do Pedido:</p>
+            <ul>
+                <li th:each="product : ${products}" th:text="${product}"></li>
+            </ul>
+            <p>Entraremos em contato em breve para confirmar os detalhes do seu pedido.</p>
+            <p>Atenciosamente,</p>
+            <p>Sua equipe de vendas</p>
+        </div>
+        <div class="footer">
+            &copy; 2024 Sua Empresa. Todos os direitos reservados.
+        </div>
+    </div>
+</body>
+</html>

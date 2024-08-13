@@ -1,0 +1,33 @@
+services:  
+  backend:
+    depends_on:      
+      - localstack
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-pedido-rabbit
+    hostname: api-pedido-rabbit
+    ports:
+      - 8085:8085
+    networks:
+      - network_jetnuvem
+    entrypoint: [ "java", "-Xms512m", "-Xmx1g", "-jar", "app.jar", "--debug" ]
+
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+      - "4510-4559:4510-4559"
+    environment:
+      - DEBUG=${DEBUG:-0}
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - network_jetnuvem
+
+networks:
+  network_jetnuvem:
+    external: true
+
