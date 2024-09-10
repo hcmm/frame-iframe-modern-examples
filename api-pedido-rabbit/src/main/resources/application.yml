@@ -1,0 +1,71 @@
+server:
+  servlet:
+    context-path: /api-pedido-rabbit
+  port: 8085
+spring:
+  application:
+    name: API Pedido Rabbit
+  jpa:
+    show-sql: true
+  web:
+    resources:
+      add-mappings: false
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-ignored-properties: true                 
+  flyway:
+    url: jdbc:h2:file:./h2/api-pedido-rabbit;MODE=MYSQL
+    user: sa
+    password: 
+    locations: classpath:db/migration     
+springdoc:  
+  packages-to-scan: com.jetnuvem.pedido.api
+    
+logging:
+  level:
+    com:
+      jetnuvem:
+        pedido: DEBUG
+    org:
+      springframework:
+        security: TRACE
+management:
+  metrics:
+    enable:
+      executor: false
+  health:
+    diskspace:
+      enabled: false
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "metrics,health,info, auditevents, loggers"
+        exclude: "env"
+    enabled-by-default: false
+    jmx:
+      exposure:
+        include: "metrics"        
+  endpoint:
+    health:
+      enabled: true    
+    info:
+      enabled: true
+    metrics:      
+      enabled: true
+    loggers:
+      enabled: true
+    auditevents:
+      enabled: true
+info:
+  application:
+    name: ${spring.api-pedido-rabbit}
+    descricao: API de pedido   
+aws:
+  access-key: test
+  secret-key: test

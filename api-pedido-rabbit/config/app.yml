@@ -1,0 +1,3 @@
+rabbitmq:
+  secret:
+    name: local/rabbitmq/config
